@@ -5,43 +5,16 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Cryptocurrencies, News } from '../components';
+import { useGetCryptosQuery } from '../services/cryptoApi';
+import Loader from './Loader';
 
-// import  cryptoApi  from '../services/cryptoApi';
 const { Title } = Typography;
 
 const Homepage = () => {
-  const [stats, setStats] = useState([]);
+  const { data, isFetching } = useGetCryptosQuery(10);
+  const globalStats = data?.data?.stats;
 
-  useEffect(() => {
-    const options = {
-      method: 'GET',
-      url: 'https://coinranking1.p.rapidapi.com/coins',
-      params: {
-        referenceCurrencyUuid: 'yhjMzLPhuIDl',
-        timePeriod: '24h',
-        'tiers[0]': '1',
-        orderBy: 'marketCap',
-        orderDirection: 'desc',
-        limit: '50',
-        offset: '0',
-      },
-      headers: {
-        'X-RapidAPI-Key': '46a1930555msh40811054868aa91p1405dejsn90070fa8c219',
-        'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com',
-      },
-    };
-    axios
-      .request(options)
-      .then(function (response) {
-        console.log(response.data);
-        const { coins, stats } = response.data.data;
-        setStats(stats);
-        setCoins(coins);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }, []);
+  if (isFetching) return <Loader />;
   return (
     <>
       <Title level={2} className="heading">
@@ -51,31 +24,31 @@ const Homepage = () => {
         <Col span={12}>
           <Statistic
             title="Total Cryptocurrencies"
-            value={stats.totalCoins}
+            value={globalStats.totalCoins}
           ></Statistic>
         </Col>
         <Col span={12}>
           <Statistic
             title="Total Exchanges"
-            value={millify(parseInt(stats.totalExchanges))}
+            value={millify(parseInt(globalStats.totalExchanges))}
           ></Statistic>
         </Col>
         <Col span={12}>
           <Statistic
             title="Total Market Cap"
-            value={`$${millify(parseInt(stats.totalMarketCap))}`}
+            value={`$${millify(parseInt(globalStats.totalMarketCap))}`}
           ></Statistic>
         </Col>
         <Col span={12}>
           <Statistic
             title="Total 24h Volume"
-            value={`$${millify(parseInt(stats.total24hVolume))}`}
+            value={`$${millify(parseInt(globalStats.total24hVolume))}`}
           ></Statistic>
         </Col>
         <Col span={12}>
           <Statistic
             title="Total Markets"
-            value={millify(parseInt(stats.totalMarkets))}
+            value={millify(parseInt(globalStats.totalMarkets))}
           ></Statistic>
         </Col>
       </Row>

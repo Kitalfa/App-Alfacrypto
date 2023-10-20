@@ -15,8 +15,7 @@ const News = () => {
     newsCategory: 'Cryptocurrency',
     count: 6,
   });
-  // const { dataCrypto } = useGetCryptosQuery(100);
-  // const [newsCategory, setNewsCategory] = useState('Cryptocurrency');
+
   if (isLoading) {
     return 'Loadind...';
   }
@@ -29,23 +28,6 @@ const News = () => {
 
   return (
     <Row gutter={[24, 24]}>
-      <Col span={24}>
-        {/* <Select
-          showSearch
-          className="select-news"
-          placeholder="Select a Crypto"
-          optionFilterProp="children"
-          onChange={(value) => setNewsCategory(value)}
-          filterOption={(input, option) =>
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-        >
-          <Option value="Cryptocurency">Cryptocurrency</Option>
-          {dataCrypto?.data?.coins?.map((currency) => (
-            <Option value={currency.name}>{currency.name}</Option>
-          ))}
-        </Select> */}
-      </Col>
       {data.data.map((news) => (
         <Col xs={24} sm={12} lg={8} key={news.id}>
           <Card hoverable className="news-card">

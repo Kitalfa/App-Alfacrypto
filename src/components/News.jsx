@@ -59,7 +59,7 @@ const News = () => {
                   src={news.thumbnail || demoImage}
                 />
               </div>
-              <p>
+              <p className="news-text">
                 {news.description > 100
                   ? `${news.description.substring(0, 100)}... `
                   : news.description}

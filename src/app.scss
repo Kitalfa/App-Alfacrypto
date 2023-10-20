@@ -2,16 +2,20 @@
 :root{
   --text-primary:#1e1e1e;
   --bgPrimary:#fff;
- --bgSecondary: #F9F9F9;
- --pink: blue;
- --light-blue: #e6f7ff;
- --border: #d9d9d9;
+  --bgSecondary: #F9F9F9;
+  --pink:  #43cea2;;
+  --light-blue: #e6f7ff;
+  --border: #d9d9d9;
 }
-// linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%)
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+a {
+  color: var(--bgPrimary);
 }
 
 a:hover{
@@ -33,9 +37,11 @@ a:hover{
   width: 100%;
   
 }
+
 .routes{
   padding: 20px;
 }
+
 .nav-container{
   position: fixed;
   left: 0;
@@ -52,12 +58,12 @@ a:hover{
   align-items: center;
   width: 100%;
 }
-.logo{
+
+#logo{
   margin:0 0 0 15px;
+  margin-bottom: 0;
 }
-.logo a{
- color: white;
-}
+
 .menu-control-container{
   display: none !important;
   position: absolute !important;
@@ -80,6 +86,22 @@ a:hover{
 
 .ant-menu{
     background-color: var(--text-primary);
+}
+
+.ant-menu-item-selected { 
+  background-image: linear-gradient(315deg, #43cea2 0%, #185a9d 75%);
+  opacity: calc(80%);
+  background-color: transparent;
+  
+}
+
+.ant-row {
+  padding: 0.5rem;
+  font-weight: 600;
+}
+
+#logo-name {
+  color: var(--bgPrimary);
 }
 
 @media screen and (max-width:1300px){

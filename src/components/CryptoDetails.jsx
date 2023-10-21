@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HTMLReactParser from 'html-react-parser';
 import { useParams } from 'react-router-dom';
 import millify from 'millify';
@@ -20,22 +20,26 @@ import {
   useGetCryptoHistoryQuery,
 } from '../services/cryptoApi';
 import Loader from './Loader';
-// import LineChart from './LineChart';
+import LineChart from './LineChart';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
-  const [timeperiod, setTimeperiod] = useState('7d');
+  const [timeperiod, setTimeperiod] = useState('5y');
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
   const { data: coinHistory } = useGetCryptoHistoryQuery({
     coinId,
     timeperiod,
   });
+  useEffect(() => {}, [timeperiod]);
+
   const cryptoDetails = data?.data?.coin;
 
-  if (isFetching) return <Loader />;
+  if (isFetching) {
+    return <Loader />;
+  }
 
   const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y'];
 
@@ -126,11 +130,11 @@ const CryptoDetails = () => {
           <Option key={date}>{date}</Option>
         ))}
       </Select>
-      {/* <LineChart
+      <LineChart
         coinHistory={coinHistory}
         currentPrice={millify(cryptoDetails?.price)}
         coinName={cryptoDetails?.name}
-      /> */}
+      />
       <Col className="stats-container">
         <Col className="coin-value-statistics">
           <Col className="coin-value-statistics-heading">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Loader from './Loader';
 import { Select, Typography, Row, Col, Avatar, Card } from 'antd';
 import moment from 'moment';
 import { useGetCryptosNewsQuery } from '../services/cryptoNewsApi';
@@ -17,7 +17,7 @@ const News = () => {
   });
 
   if (isLoading) {
-    return 'Loadind...';
+    return <Loader />;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -29,7 +29,7 @@ const News = () => {
   return (
     <Row gutter={[24, 24]}>
       {data.data.map((news) => (
-        <Col xs={24} sm={12} lg={8} key={news.id}>
+        <Col xs={24} sm={12} lg={8} key={news.title}>
           <Card hoverable className="news-card">
             <a href={news.url} target="_blank" rel="noreferrer">
               <div className="news-image-container">
@@ -42,8 +42,8 @@ const News = () => {
                 />
               </div>
               <p className="news-text">
-                {news.description.length > 200
-                  ? `${news.description.substring(0, 200)}... `
+                {news.description.length > 100
+                  ? `${news.description.substring(0, 100)}... `
                   : news.description}
               </p>
               <div className="provider-container">

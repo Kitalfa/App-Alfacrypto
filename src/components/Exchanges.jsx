@@ -23,8 +23,9 @@ const Exchanges = () => {
     }
   }, [exchangesList]);
 
-  if (isFetching) return <Loader />;
-
+  if (isFetching) {
+    return <Loader />;
+  }
   return (
     <>
       <Row>
